@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - FahzGPT</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:'Inter',sans-serif;
+background:linear-gradient(135deg,#0f172a,#020617);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+width:90%;
+max-width:800px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+padding:30px;
+border-radius:20px;
+}
+
+.title{
+font-size:28px;
+font-weight:600;
+}
+
+.card{
+margin-top:20px;
+padding:20px;
+border-radius:14px;
+background:rgba(255,255,255,0.06);
+}
+
+select,textarea{
+width:100%;
+margin-top:10px;
+padding:10px;
+border-radius:8px;
+border:none;
+background:#020617;
+color:white;
+}
+
+button{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+border-radius:8px;
+background:#3b82f6;
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+button:hover{
+background:#2563eb;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">Admin Panel</div>
+
+<div class="card">
+
+Server Mode
+
+<select id="status">
+
+<option value="aktif">Aktif</option>
+<option value="mati">Mati</option>
+<option value="error">Error</option>
+<option value="update">Update</option>
+
+</select>
+
+</div>
+
+<div class="card">
+
+Pengumuman
+
+<textarea id="announcement" rows="6"></textarea>
+
+<button id="save">Save</button>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAvmNVsEKYsZ00qjZIbF92aoNPGhjlurpc",
+authDomain: "debug-ai-da648.firebaseapp.com",
+databaseURL: "https://debug-ai-da648-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "debug-ai-da648",
+storageBucket: "debug-ai-da648.firebasestorage.app",
+messagingSenderId: "801152011345",
+appId: "1:801152011345:web:f961fa88389eb86591fc70"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const status = document.getElementById("status");
+const announcement = document.getElementById("announcement");
+const save = document.getElementById("save");
+
+save.onclick = ()=>{
+
+set(ref(db,"server"),{
+
+status: status.value,
+announcement: announcement.value
+
+});
+
+alert("Berhasil dipublikasikan!");
+
+};
+
+</script>
+
+</body>
+</html>
